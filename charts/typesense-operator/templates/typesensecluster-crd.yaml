@@ -104,6 +104,9 @@ spec:
                 type: string
               ingress:
                 properties:
+                  maxBodySize:
+                    pattern: ^(\d+)([KMGkmg])?$`
+                    type: string
                   annotations:
                     additionalProperties:
                       type: string

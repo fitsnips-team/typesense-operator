@@ -49,6 +49,11 @@ func (in *IngressSpec) DeepCopyInto(out *IngressSpec) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.MaxBodySize != nil {
+		in, out := &in.MaxBodySize, &out.MaxBodySize
+		*out = new(string)
+		**out = **in
+	}
 	if in.Annotations != nil {
 		in, out := &in.Annotations, &out.Annotations
 		*out = make(map[string]string, len(*in))

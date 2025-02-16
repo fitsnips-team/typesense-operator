@@ -35,6 +35,7 @@ spec:
   adminApiKey:
     name: typesense-common-bootstrap-key
   ingress:
+    maxBodySize: 10M
     referer: referer.example.com
     host: host.example.com
     ingressClassName: nginx

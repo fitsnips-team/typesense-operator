@@ -3,6 +3,8 @@ package controller
 import (
 	"context"
 	"fmt"
+	"maps"
+
 	tsv1alpha1 "github.com/akyriako/typesense-operator/api/v1alpha1"
 	appsv1 "k8s.io/api/apps/v1"
 	v1 "k8s.io/api/core/v1"
@@ -11,7 +13,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 	"k8s.io/utils/ptr"
-	"maps"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -22,7 +23,9 @@ var (
 				  server {
 					listen 80;
 
-					%s
+					%s # Reffer
+
+					%s # Max Body Size
 					
 					location / {
 					  proxy_pass http://%s-svc:8108/;
@@ -262,7 +265,12 @@ func (r *TypesenseClusterReconciler) getIngressNginxConf(ts *tsv1alpha1.Typesens
 		ref = fmt.Sprintf(referer, *ts.Spec.Ingress.Referer)
 	}
 
-	return fmt.Sprintf(conf, ref, ts.Name)
+	bodySize := ""
+	if ts.Spec.Ingress != nil && ts.Spec.Ingress.MaxBodySize != nil {
+		bodySize = fmt.Sprintf("client_max_body_size %s;", *ts.Spec.Ingress.MaxBodySize)
+	}
+
+	return fmt.Sprintf(conf, ref, bodySize, ts.Name)
 }
 
 func (r *TypesenseClusterReconciler) createIngressDeployment(ctx context.Context, key client.ObjectKey, ts *tsv1alpha1.TypesenseCluster, ig *networkingv1.Ingress) (*appsv1.Deployment, error) {

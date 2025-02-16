@@ -214,6 +214,7 @@ introducing `TypesenseCluster`, a new Custom Resource Definition:
 | Name             | Description                          | Optional | Default |
 |------------------|--------------------------------------|----------|---------|
 | referer          | FQDN allowed to access reverse proxy | X        |         |
+| maxBodySize      | Set max-body-size <int>K/M/G         | X        |         |
 | host             | Ingress Host                         |          |         |
 | clusterIssuer    | cert-manager `ClusterIssuer`         |          |         |
 | ingressClassName | Ingress to be used                   |          |         |

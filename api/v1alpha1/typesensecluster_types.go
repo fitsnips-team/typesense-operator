@@ -107,13 +107,13 @@ type IngressSpec struct {
 	// +kubebuilder:validation:Pattern:=`^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$`
 	Referer *string `json:"referer,omitempty"`
 
-	// +optional
-	// +kubebuilder:validation:Pattern=`^(\d+)([KMGkmg])?$`
-	MaxBodySize *string `json:"maxBodySize,omitempty"`
-
 	// +kubebuilder:validation:Required
 	// +kubebuilder:validation:Pattern:=`^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]{0,61}[a-zA-Z0-9]))*$`
 	Host string `json:"host"`
+
+	HttpDirectives     *string `json:"httpDirectives,omitempty"`
+	ServerDirectives   *string `json:"serverDirectives,omitempty"`
+	LocationDirectives *string `json:"locationDirectives,omitempty"`
 
 	ClusterIssuer string `json:"clusterIssuer"`
 
